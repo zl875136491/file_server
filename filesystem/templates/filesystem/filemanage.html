@@ -1,0 +1,27 @@
+{% extends 'users/base.html' %}
+{% block title %}File Manage{% endblock %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>File Manage</title>
+</head>
+<body>
+
+
+<div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            {% if request.session.is_login %}
+            <h1>File Manage</h>
+
+                {% else %}
+                <h1>你尚未登录</h1>
+                {% endif %}
+            </div>
+    </div> <!-- /container -->
+</body>
+</html>
+{% endblock %}

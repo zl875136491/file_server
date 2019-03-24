@@ -16,15 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from users import views
-from filesystem import f_views
+from users import views as usersviews
+from filesystem import views as fileviews
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^$', views.index),
-    url(r'^index', views.index),
-    url(r'^login/', views.login),
-    url(r'^register/', views.register),
-    url(r'^logout/', views.logout),
+    url(r'^$', usersviews.index),
+    url(r'^index', usersviews.index),
+    url(r'^login/', usersviews.login),
+    url(r'^register/', usersviews.register),
+    url(r'^logout/', usersviews.logout),
     url(r'^captcha', include('captcha.urls')),
-    url(r'^file/', f_views.upload),
+    url(r'^file/', fileviews.upload),
+    url(r'^uploadok/', fileviews.uploadok),
+    url(r'^filemanage', fileviews.filemanage),
 ]

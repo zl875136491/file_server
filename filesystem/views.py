@@ -2,13 +2,13 @@ from django.shortcuts import render,render_to_response
 from django import forms
 from django.http import HttpResponse
 from . import models
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
 class FileForm(forms.Form):
-    filename = forms.CharField()
-    headImg = forms.FileField()
+    filename = forms.CharField(label="文件名", max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}))
+    headImg = forms.FileField(label="文件", max_length=128, widget=forms.FileInput(attrs={'class': 'form-control'}))
 
 
 '''
@@ -17,6 +17,7 @@ register函数判断用户的是否为POST请求，如果是并验证是有效�
 ，因为只有文件上传成功能返回OK
 如果是GET请求，就直接显示一个空表单，让用户输入。
 '''
+
 
 
 def upload(request):
@@ -31,8 +32,20 @@ def upload(request):
             file.file_name = filename
             file.file_path = headImg
             file.save()
-            return HttpResponse('upload ok!')
+            return render(request, 'filesystem/uploadok.html')
     else:
         uf = FileForm()
         # 返回一个空表单
     return render(request, 'filesystem/upload.html', {'uf': uf})
+
+
+def uploadok(request):
+    pass
+    # TODO: 验证文件是否上传
+    return render(request, 'filesystem/uploadok.html')
+
+
+def filemanage(request):
+    pass
+    # TODO：显示文件
+    return render(request, 'filesystem/filemanage.html')
