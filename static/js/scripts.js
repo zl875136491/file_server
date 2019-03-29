@@ -13,7 +13,9 @@ jQuery(document).ready(function() {
 		e.preventDefault();
 		$( '#' + $(this).data('modal-id') ).modal();
 	});
-    
+
+
+
     /*
         Form validation
     */

@@ -3,16 +3,22 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 from .forms import RegisterForm
 from . import models
-
+def page404(request):
+    pass
+    return render(request, 'user/404.html')
 
 def index(request):
-    pass
-    return render(request, 'users/index.html')
+    if request.session['user_type'] == 'Student':
+        return render(request, 'users/index.html')
+    else:
+        return render(request, 'users/404.html')
 
 
-def index(request):
-    pass
-    return render(request, 'users/index.html')
+def teacherindex(request):
+    if request.session['user_type'] == 'Teacher':
+        return render(request, 'users/teacherindex.html')
+    else:
+        return render(request, 'users/404.html')
 
 
 def login(request):
@@ -24,18 +30,26 @@ def login(request):
         if login_form.is_valid():
             username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
+            print(username, password)
             try:
                 user = models.User.objects.get(username=username)
                 if user.user_pwd == password:
                     request.session['is_login'] = True
                     request.session['user_id'] = user.username
                     request.session['user_name'] = user.name
-                    return redirect('/index/')
+                    request.session['user_type'] = user.user_type
+                    if user.user_type == 'Student':
+                        return redirect('/index/')
+                    if user.user_type == 'Teacher':
+                        return redirect('/teacherindex/')
+                    else:
+                        message = "用户类型错误"
                 else:
                     message = "密码不正确！"
             except:
-                message = "用户不存在！"
-        return render(request, 'users/login.html', locals())
+                   message = "用户不存在！"
+
+            return render(request, 'users/login.html', locals())
 
     login_form = UserForm()
     return render(request, 'users/login.html', locals())
@@ -47,7 +61,7 @@ def logout(request):
         # 如果本来就未登录，也就没有登出一说
         return redirect("/index/")
     request.session.flush()
-    return redirect("/index/")
+    return redirect("/login/")
 
 
 def register(request):

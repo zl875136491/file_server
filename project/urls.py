@@ -20,8 +20,9 @@ from users import views as usersviews
 from filesystem import views as fileviews
 urlpatterns = [
     url('admin/', admin.site.urls),
-    url(r'^$', usersviews.index),
+    url(r'^$', usersviews.login),
     url(r'^index', usersviews.index),
+    url(r'^teacherindex', usersviews.teacherindex),
     url(r'^login/', usersviews.login),
     url(r'^register/', usersviews.register),
     url(r'^logout/', usersviews.logout),
@@ -29,4 +30,5 @@ urlpatterns = [
     url(r'^file/', fileviews.upload),
     url(r'^uploadok/', fileviews.uploadok),
     url(r'^filemanage', fileviews.filemanage),
+    url(r'^404/', usersviews.page404),
 ]
