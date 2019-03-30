@@ -14,7 +14,6 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
 from django.conf.urls import url, include
 from users import views as usersviews
 from filesystem import views as fileviews
@@ -30,5 +29,7 @@ urlpatterns = [
     url(r'^file/', fileviews.upload),
     url(r'^uploadok/', fileviews.uploadok),
     url(r'^filemanage', fileviews.filemanage),
+    url(r'^noteediter', fileviews.noteediter),
+    url(r'^notereciver', fileviews.notereciver),
     url(r'^404/', usersviews.page404),
 ]

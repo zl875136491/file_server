@@ -1,19 +1,7 @@
-
+<!DOCTYPE html>
+{% extends 'users/base.html' %}
 {% load staticfiles %}
 <head>
-    {% block css %}
-    <!--<link rel="stylesheet" href="{% static 'css/login.css' %}">-->
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <link rel="stylesheet" href="{% static 'bootstrap-3.3.7-dist/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/form-elements.css' %}">
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-    <script src="{% static 'bootstrap-3.3.7-dist/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.backstretch.min.js' %}"></script>
-    <script src="{% static 'js/scripts.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'css/login-register.css' %}">
-    {% endblock %}
 
 </head>
 
@@ -24,7 +12,7 @@
 <!-- 按钮触发模态框 -->
 <br>
 
-<button data-toggle="modal" data-target="#Modal" class="btn-link-1 btn-middle">注册
+<button data-toggle="modal" data-target="#Modal" class="btn btn-link-1">注册
 </button>
 <br>
 <br>
@@ -79,7 +67,7 @@
                   {{ register_form.captcha.label_tag }}
                   {{ register_form.captcha }}
               </div>
-                    <button type="submit" class="btn btn-primary">提交</button>
+                    <button type="submit" class="btn-big btn-primary">提交</button>
                 </form>
             </div>
 
@@ -89,7 +77,6 @@
                     {% if message %}
                     <div class="alert alert-warning">{{ message }}</div>
                     {% endif %}
-
 
 </body>
 {% endblock %}

@@ -3,11 +3,17 @@ from django.shortcuts import render, redirect
 from .forms import UserForm
 from .forms import RegisterForm
 from . import models
+
+
 def page404(request):
     pass
     return render(request, 'user/404.html')
 
+
 def index(request):
+    if not request.session.get('is_login', None):
+        # 如果未登录
+        return redirect("/login/")
     if request.session['user_type'] == 'Student':
         return render(request, 'users/index.html')
     else:
@@ -15,6 +21,9 @@ def index(request):
 
 
 def teacherindex(request):
+    if not request.session.get('is_login', None):
+        # 如果未登录
+        return redirect("/login/")
     if request.session['user_type'] == 'Teacher':
         return render(request, 'users/teacherindex.html')
     else:
@@ -53,7 +62,6 @@ def login(request):
 
     login_form = UserForm()
     return render(request, 'users/login.html', locals())
-
 
 
 def logout(request):

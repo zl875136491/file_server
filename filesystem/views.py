@@ -19,7 +19,6 @@ register函数判断用户的是否为POST请求，如果是并验证是有效�
 '''
 
 
-
 def upload(request):
     if request.method == "POST":
         uf = FileForm(request.POST, request.FILES)
@@ -49,3 +48,13 @@ def filemanage(request):
     pass
     # TODO：显示文件
     return render(request, 'filesystem/filemanage.html')
+
+
+def noteediter(request):
+    pass
+    return render(request, 'filesystem/noteediter.html')
+
+
+def notereciver(request):
+    pass
+    return render(request, 'filesystem/notereciver.html')
