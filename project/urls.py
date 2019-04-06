@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from users import views as usersviews
 from filesystem import views as fileviews
+from notesystem import views as noteviews
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^$', usersviews.login),
@@ -29,7 +30,7 @@ urlpatterns = [
     url(r'^file/', fileviews.upload),
     url(r'^uploadok/', fileviews.uploadok),
     url(r'^filemanage', fileviews.filemanage),
-    url(r'^noteediter', fileviews.noteediter),
-    url(r'^notereciver', fileviews.notereciver),
+    url(r'^noteediter', noteviews.noteediter),
+    url(r'^notereciver', noteviews.notereciver),
     url(r'^404/', usersviews.page404),
 ]

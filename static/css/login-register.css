@@ -14,8 +14,8 @@ a, a:hover, a:focus {
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
 
-h1, h2 {
-	margin-top: 10px;
+h1 {
+	margin-top: 20%;
 	font-size: 38px;
     font-weight: 100;
     color: #555;
@@ -29,6 +29,12 @@ h3 {
     line-height: 30px;
 }
 
+ .details {
+        position: fixed;
+        bottom: 0;
+        height: 100px;
+        width: 100%;
+        }
 img { max-width: 100%; }
 
 ::-moz-selection { background: #fd625e; color: #fff; text-shadow: none; }
@@ -70,7 +76,7 @@ img { max-width: 100%; }
 	margin-top: 45px;
 }
 
-
+/***** Button *****/
 button.btn {
 	width: 20%;
 	height: 50px;
@@ -128,15 +134,18 @@ button.btn-big {
     -moz-box-shadow: none; -webkit-box-shadow: none; box-shadow: none;
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
+
+/***** Middle *****/
 .btn-middle {
     margin:5% 25%;
 }
 
+.table-middle {
+    margin:5% 20%;
+}
 
 
 /***** Modal *****/
-
-
 .modal-content {
 	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
 	border: 0;

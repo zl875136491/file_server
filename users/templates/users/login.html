@@ -2,16 +2,19 @@
 {% extends 'users/base.html' %}
 {% load staticfiles %}
 <head>
-
+    <title>{% block title %}Login{% endblock %}</title>
 </head>
 {% block content %}
-<body >
-
+<body>
+<div>
+<h1>Linux实验报告管理系统</h1>
+</div>
 
 <!-- 按钮触发模态框 -->
 <br>
 <button data-toggle="modal" data-target="#Modal" class="btn btn-link-1">登录</button>
 <br>
+
 <!--<button class="btn-link-1 btn-middle" onclick="location.href='/register'">注册</button>-->
 
 <!-- login模态框 -->
@@ -53,6 +56,12 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
 </div>
+    <div class="details">
+    <details >
+    <summary>Copyright © 2019.</summary>
+        <p>University <a href="http://www.dlnu.edu.cn">DLNU</a> All rights reserved.</p>
+    </details>
+    </div>
                     {% if message %}
                     <div>{{ message }}</div>
                     {% endif %}

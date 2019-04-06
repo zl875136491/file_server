@@ -14,8 +14,10 @@ def index(request):
     if not request.session.get('is_login', None):
         # 如果未登录
         return redirect("/login/")
-    if request.session['user_type'] == 'Student':
+    elif request.session['user_type'] == 'Student':
         return render(request, 'users/index.html')
+    elif request.session['user_type'] == 'Teacher':
+        return render(request, 'users/teacherindex.html')
     else:
         return render(request, 'users/404.html')
 
@@ -24,8 +26,10 @@ def teacherindex(request):
     if not request.session.get('is_login', None):
         # 如果未登录
         return redirect("/login/")
-    if request.session['user_type'] == 'Teacher':
+    elif request.session['user_type'] == 'Teacher':
         return render(request, 'users/teacherindex.html')
+    elif request.session['user_type'] == 'Student':
+        return render(request, 'users/index.html')
     else:
         return render(request, 'users/404.html')
 
