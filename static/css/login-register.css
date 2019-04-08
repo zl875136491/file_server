@@ -144,6 +144,10 @@ button.btn-big {
     margin:5% 20%;
 }
 
+.sign-middle {
+    margin:0 20%
+}
+
 
 /***** Modal *****/
 .modal-content {

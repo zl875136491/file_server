@@ -14,8 +14,11 @@
             <h1>Note Revicer</h1>
 
             </div>
+                {% if message %}
+                <div class="table-middle">{{ message }}</div>
+                {% endif %}
     </div>
-
+             <a href="/index" class="btn btn-link-1">返回</a>
 
 </body>
 {% endblock %}

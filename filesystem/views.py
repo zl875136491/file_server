@@ -36,7 +36,7 @@ def upload(request):
     else:
         ff = FileForm()
         # 返回一个空表单
-    return render(request, 'filesystem/upload.html', {'uf': ff})
+    return render(request, 'filesystem/upload.html', {'ff': ff})
 
 
 def uploadok(request):
@@ -51,14 +51,6 @@ def filemanage(request):
         return render(request, 'filesystem/filemanage.html', {'list': objects})
 
 
-def noteediter(request):
-    pass
-    return render(request, 'filesystem/noteediter.html')
-
-
-def notereciver(request):
-    pass
-    return render(request, 'filesystem/notereciver.html')
 
 
 

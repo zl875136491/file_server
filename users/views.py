@@ -7,7 +7,7 @@ from . import models
 
 def page404(request):
     pass
-    return render(request, 'user/404.html')
+    return render(request, 'users/404.html')
 
 
 def index(request):
@@ -52,9 +52,9 @@ def login(request):
                     request.session['user_name'] = user.name
                     request.session['user_type'] = user.user_type
                     if user.user_type == 'Student':
-                        return redirect('/index/')
+                        return redirect('/index')
                     if user.user_type == 'Teacher':
-                        return redirect('/teacherindex/')
+                        return redirect('/teacherindex')
                     else:
                         message = "用户类型错误"
                 else:
@@ -91,7 +91,7 @@ def register(request):
             email = register_form.cleaned_data['email']
             if password1 != password2:  # 判断两次密码是否相同
                 message = "两次输入的密码不同！"
-                return render(request, 'users/register.html', locals())
+                return render(request, '/register.html', locals())
             else:
                 same_name_user = models.User.objects.filter(username=username)
                 if same_name_user:  # 用户名唯一
