@@ -1,26 +1,14 @@
 from django.shortcuts import render, redirect
-from .forms import NoteForm
+# from .forms import NoteForm
 from . import models
 # Create your views here.
 
 
-# def noteediter(request):
-#     pass
-#     return render(request, 'notesystem/noteediter.html')
-
-
-def notereciver(request):
-    pass
-    return render(request, 'notesystem/notereciver.html')
-
-
 def noteediter(request):
-
     if request.method == "POST":
         title = request.POST.get('title', None)
         content = request.POST.get('content', None)
         deadline_date = request.POST.get('deadline_date', None)
-        print(title, content, deadline_date)
         same_title = models.Notes.objects.filter(title=title)
         if same_title:
             message = '标题已经存在！'
@@ -42,3 +30,13 @@ def noteediter(request):
             return render(request, 'notesystem/notereciver.html', locals())
     return render(request, 'notesystem/noteediter.html')
 
+
+def notereciver(request):
+    all_note = models.Notes.objects.all().order_by('publish_date')
+    return render(request, 'notesystem/notereciver.html', {'list': all_note})
+
+
+def notecontent(request, note_id):
+    detail = models.Notes.objects.get(id=note_id)
+
+    return render(request, 'notesystem/notecontent.html', {'list': detail})

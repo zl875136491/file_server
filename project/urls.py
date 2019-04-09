@@ -18,6 +18,8 @@ from django.conf.urls import url, include
 from users import views as usersviews
 from filesystem import views as fileviews
 from notesystem import views as noteviews
+app_name = 'notesystem'
+
 urlpatterns = [
     url('admin/', admin.site.urls),
     url(r'^$', usersviews.login),
@@ -33,4 +35,5 @@ urlpatterns = [
     url(r'^noteediter/', noteviews.noteediter),
     url(r'^notereciver/', noteviews.notereciver),
     url(r'^404/', usersviews.page404),
+    url(r'^notecontent/(?P<note_id>\d+)/$', noteviews.notecontent, name='note'),
 ]

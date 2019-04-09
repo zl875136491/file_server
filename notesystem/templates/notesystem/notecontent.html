@@ -5,34 +5,28 @@
     <title>{% block title %}Notes{% endblock %}</title>
 </head>
 {% block content %}
-<body>
-
+<p>
 
     <div class="container">
         <div class="col-md-4 col-md-offset-4">
 
-            <h1>Note Revicer</h1>
+            <h1>{{ list.title }}</h1>
 
             </div>
                 {% if message %}
                 <div class="table-middle">{{ message }}</div>
                 {% endif %}
-    </div>
+            </div>
+            <div>
+                <p>实验内容：</p>
+            <p>{{ list.content }}</p>
+            </div>
+            <div>
+                 <p>实验截止日期：</p>
+            <p>{{ list.deadline_date }}</p>
+            </div>
 
-
-    <!--contend-->
-     <ur>
-        {% for note in list %}
-
-            <p>
-            <a href="/notecontent/{{ note.id }}">{{ note }}</a>
-            </p>
-
-        {% empty %}
-        <li>没有主题可以显示</li>
-        {% endfor %}
-    </ur>
-             <a href="/index" class="btn btn-link-1">返回</a>
+             <a href="/notereciver" class="btn btn-link-1">返回</a>
 
 </body>
 {% endblock %}
