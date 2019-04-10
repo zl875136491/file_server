@@ -18,21 +18,35 @@
                 <div class="table-middle">{{ message }}</div>
                 {% endif %}
     </div>
-
-
     <!--contend-->
-     <ur>
-        {% for note in list %}
+    <div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span12">
+			<table class="table table-hover table-striped">
+				<thead>
+					<tr>
+						<th>
 
-            <p>
-            <a href="/notecontent/{{ note.id }}">{{ note }}</a>
-            </p>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for note in list %}
+					<tr>
+						<td class="success">
+							<p><a href="/notecontent/{{ note.id }}">{{ note }}</a></p>
+						</td>
+					</tr>
+				{% empty %}
+				<tr><td>没有主题可以显示</td></tr>
+        		{% endfor %}
 
-        {% empty %}
-        <li>没有主题可以显示</li>
-        {% endfor %}
-    </ur>
-             <a href="/index" class="btn btn-link-1">返回</a>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+			<a href="/index" class="btn btn-link-1">返回</a>
 
 </body>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django import forms
 from . import models
+from notesystem import models as note_models
 import os
 
 # Create your views here.
@@ -38,6 +39,10 @@ def upload(request):
         # 返回一个空表单
     return render(request, 'filesystem/upload.html', {'ff': ff})
 
+
+def upload2(request):
+    all_note = note_models.Notes.objects.all().order_by('publish_date')
+    return render(request, 'filesystem/upload2.html', {'list': all_note})
 
 def uploadok(request):
 

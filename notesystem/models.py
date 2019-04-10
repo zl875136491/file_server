@@ -11,5 +11,5 @@ class Notes(models.Model):
     deadline_date = models.CharField(max_length=10)
 
     def __str__(self):
-        return "<%s, Deadline:%s>" % (self.title, self.deadline_date)
+        return "实验题目：%s  |  实验截止日期：%s" % (self.title, self.deadline_date)
 

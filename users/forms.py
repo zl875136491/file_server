@@ -8,7 +8,6 @@ class UserForm(forms.Form):
     password = forms.CharField(label="密  码", max_length=256, widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
 
-
 class RegisterForm(forms.Form):
     username = forms.CharField(label="学号", max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}))
     name = forms.CharField(label="姓名", max_length=128, widget=forms.TextInput(attrs={'class': 'form-control'}))
