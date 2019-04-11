@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^logout/', usersviews.logout),
     url(r'^captcha', include('captcha.urls')),
     url(r'^upload/', fileviews.upload),
-    url(r'^upload2/', fileviews.upload2),
     url(r'^uploadok/', fileviews.uploadok),
     url(r'^filemanage/', fileviews.filemanage),
     url(r'^noteediter/', noteviews.noteediter),

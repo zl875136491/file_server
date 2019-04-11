@@ -1,6 +1,11 @@
+<!DOCTYPE html>
 {% extends 'users/base_teacher.html' %}
+<html>
+<head>
 {% block title %}Home{% endblock %}
+</head>>
 {% block content %}
+<body>
     {% if request.session.is_login %}
     {% if message %}
     <div>{{ message }}</div>
@@ -22,4 +27,6 @@
     {% else %}
     <h1>你尚未登录，只能访问公开内容！</h1>
     {% endif %}
+</body>
 {% endblock %}
+</html>

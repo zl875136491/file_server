@@ -1,7 +1,12 @@
+<!DOCTYPE html>
 {% extends 'users/base.html' %}
-{% block title %}Home{% endblock %}
-{% block content %}
 
+<html>
+<head>
+    {% block title %}Home{% endblock %}
+</head>
+{% block content %}
+<body>
     <div class="container">
         <div class="col-md-4 col-md-offset-4">
             <h1>你好,{{ request.session.user_name }}！</h1>
@@ -16,4 +21,6 @@
             </div>
         </div>
     </div>
+</body>
 {% endblock %}
+</html>

@@ -8,11 +8,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>上传成功</title>
+
 </head>
 <body>
 <h1>UPLOAD is ok</h1>
+    {% if message %}
+    <div>{{ message }}</div>
+    {% endif %}
 
-            <a href="users/index.html" class="btn btn-link-1">返回</a>
+            <a href="/index" class="btn btn-link-1">返回</a>
 </body>
 </html>
 {% endblock %}
