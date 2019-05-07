@@ -3,7 +3,7 @@ from django import forms
 from . import models
 from notesystem import models as note_models
 import os
-
+from django.http import StreamingHttpResponse
 # Create your views here.
 
 
@@ -57,11 +57,40 @@ def uploadok(request):
 
 
 def filemanage(request):
+        if request.method == "POST":
+            file_id = request.POST.get('test', None)
+            file_name = str(models.FileModel.objects.get(id=file_id).file_path)
+            the_file_name = file_name[6:]  # 显示在弹出对话框中的默认的下载文件名
+            print(file_name, the_file_name)
+            response = StreamingHttpResponse(readFile(file_name))
+            response['Content-Type'] = 'application/octet-stream'
+            response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+            return response
+
         if request.method == "GET":
             objects = models.FileModel.objects.all()
+            return render(request, 'filesystem/filemanage.html', {'list': objects})
 
-        return render(request, 'filesystem/filemanage.html', {'list': objects})
 
+def download(request):
+    file_id = 59
+    file_name = str(models.FileModel.objects.get(id=file_id).file_path)
+    the_file_name = file_name[6:]  # 显示在弹出对话框中的默认的下载文件名
+    print(file_name, the_file_name)
+    response = StreamingHttpResponse(readFile(file_name))
+    response['Content-Type'] = 'application/octet-stream'
+    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+    return response
+
+
+def readFile(filename, chunk_size=512):
+    with open(filename, 'rb') as f:
+        while True:
+            c = f.read(chunk_size)
+            if c:
+                yield c
+            else:
+                break
 
 
 

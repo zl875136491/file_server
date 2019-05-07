@@ -1,0 +1,17 @@
+<div class="row">
+      <div class="col-md-8 col-md-offset-2">
+          <br>
+          <P>第一种方法，直接把链接地址指向要下载的静态文件，在页面中点击该链接，可以直接打开该文件，在链接上点击右键，选择“另存为”可以保存该文件到本地硬盘。
+             此方法只能实现静态文件的下载，不能实现动态文件的下载。</P>
+          <a href="{% url 'media' 'uploads/11.png' %}">11.png</a>
+          <br>
+          <br>
+          <p>第二种方法，将链接指向相应的view函数，在view函数中实现下载功能，可以实现静态和动态文件的下载。</p>
+          <a href="{% url 'course:download_file' %}">11.png</a>
+          <br>
+          <br>
+          <br>
+          <p>第三种方法，与第二种方法类似，利用按钮的响应函数实现文件下载功能。</p>
+          <label> 11.png</label><button onclick="window.location.href='{% url 'course:download_file' %}'">Download</button>
+      </div>
+  </div>

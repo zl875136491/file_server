@@ -12,30 +12,30 @@
             </div>
     </div>
     <!--数据表-->
+<form action="/filemanage/" method="post">
+    {% csrf_token %}
 <div class="table-middle">
                   <!-- tile body -->
+
                   <div>
                     <table class="table table-bordered" >
                       <thead>
                         <tr>
-                          <th>文件名</th>
                           <th>所有者</th>
                           <th>上传日期</th>
                             <th>所属</th>
-                          <th>全选<input type="checkbox" value="1" id="quanxuan"></th>
+                          <th>全选<input type="checkbox" value="0" id="quanxuan"></th>
                         </tr>
                       </thead>
                       <tbody>
                       {% for i in list %}
                         <tr>
-                         <td>{{ i.file_name }}</td>
                          <td>{{ i.file_owner }}</td>
                          <td>{{ i.upload_date }}</td>
                          <td>{{ i.file_attribution }}</td>
                          <td>
                             <div>
-                              <input type="checkbox" value="1" id="chk" class="qx">
-                              <label for="chk"></label>
+                              <input type="checkbox" value="{{ i.id }}" class="qx" name="test">
                             </div>
                           </td>
                          </tr>
@@ -43,8 +43,11 @@
                       </tbody>
                     </table>
                   </div>
-    <a href="#" class="btn btn-link-1">下载所选</a>
+    <div>
+    <button type="submit" class="btn btn-link-1">下载所选</button>
     </div>
+</div>
+</form>
 
 
 </body>

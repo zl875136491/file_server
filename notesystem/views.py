@@ -38,5 +38,4 @@ def notereciver(request):
 
 def notecontent(request, note_id):
     detail = models.Notes.objects.get(id=note_id)
-
     return render(request, 'notesystem/notecontent.html', {'list': detail})

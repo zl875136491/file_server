@@ -15,8 +15,10 @@ def index(request):
         # 如果未登录
         return redirect("/login/")
     elif request.session['user_type'] == 'Student':
+        # 如果学生Session
         return render(request, 'users/index.html')
     elif request.session['user_type'] == 'Teacher':
+        # 如果教师Session
         return render(request, 'users/teacherindex.html')
     else:
         return render(request, 'users/404.html')
