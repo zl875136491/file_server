@@ -4,6 +4,7 @@ from . import models
 from notesystem import models as note_models
 import os
 from django.http import StreamingHttpResponse
+from django.utils.http import urlquote
 # Create your views here.
 
 
@@ -21,14 +22,17 @@ def upload(request):
     if request.method == "POST":
         attribution = request.POST.get('file_attribution')
         cleaned_attribution = str(attribution).split('|')[0].rstrip()
-        owner = request.session['user_id']
-        name = str(request.session['user_id']) + '-' + cleaned_attribution
+        clear_title = cleaned_attribution.split('：')[1].rstrip()
+        report_id = note_models.Notes.objects.get(title=clear_title).id
+        ownerid = request.session['user_id']
+        name = str(request.session['user_id']) + '-' + str(report_id)
         up_file = request.FILES.get('upload_file', None)
-
         if not attribution:
             message = "attribution error!"
             return render(request, 'filesystem/upload.html', {'list': all_note}, locals())
-
+        if models.FileModel.objects.filter(file_name=name):
+            message = "you already submited! do not submit again!"
+            return render(request, 'filesystem/uploadok.html', locals())
         else:
             try:
                 path = os.path.join('media', up_file.name)
@@ -41,7 +45,7 @@ def upload(request):
                 return render(request, 'filesystem/upload.html', locals())
             file = models.FileModel.objects.create()
             file.file_name = name
-            file.file_owner = owner
+            file.file_owner = ownerid
             file.file_path = path
             file.file_attribution = cleaned_attribution.split('：')[1]
             file.save()
@@ -59,10 +63,9 @@ def uploadok(request):
 def filemanage(request):
         if request.method == "POST":
             file_id = request.POST.get('test', None)
-            file_name = str(models.FileModel.objects.get(id=file_id).file_path)
-            the_file_name = file_name[6:]  # 显示在弹出对话框中的默认的下载文件名
-            print(file_name, the_file_name)
-            response = StreamingHttpResponse(readFile(file_name))
+            file_path = str(models.FileModel.objects.get(id=file_id).file_path)
+            the_file_name = str(models.FileModel.objects.get(id=file_id).file_name) + '.doc'  # 显示在弹出对话框中的默认的下载文件名
+            response = StreamingHttpResponse(readFile(file_path))
             response['Content-Type'] = 'application/octet-stream'
             response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
             return response
@@ -70,17 +73,6 @@ def filemanage(request):
         if request.method == "GET":
             objects = models.FileModel.objects.all()
             return render(request, 'filesystem/filemanage.html', {'list': objects})
-
-
-def download(request):
-    file_id = 59
-    file_name = str(models.FileModel.objects.get(id=file_id).file_path)
-    the_file_name = file_name[6:]  # 显示在弹出对话框中的默认的下载文件名
-    print(file_name, the_file_name)
-    response = StreamingHttpResponse(readFile(file_name))
-    response['Content-Type'] = 'application/octet-stream'
-    response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
-    return response
 
 
 def readFile(filename, chunk_size=512):
