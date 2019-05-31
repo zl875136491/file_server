@@ -39,3 +39,4 @@ urlpatterns = [
     url(r'^notecontent/(?P<note_id>\d+)/$', noteviews.notecontent, name='note'),
 
 ]
+

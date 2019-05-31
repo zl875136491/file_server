@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
-
+from django.shortcuts import render_to_response
 from .forms import UserForm
 from .forms import RegisterForm
 from . import models
 
 
 def page404(request):
-    pass
+    request.session.flush()
     return render(request, 'users/404.html')
 
 
