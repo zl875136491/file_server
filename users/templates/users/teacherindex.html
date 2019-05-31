@@ -6,31 +6,29 @@
 </head>>
 {% block content %}
 <body>
-    {% if request.session.is_login %}
+
     {% if message %}
     <div>{{ message }}</div>
     {% endif %}
     <div class="container">
         <div class="col-md-4 col-md-offset-4">
-            <h1>你好,{{ request.session.user_name }}老师!</h1>
+            <h1>你好,{{ request.session.user_name }}老师！</h1>
             <div>
-             <a href="/filemanage"><img border="0" src="/static/img/download.svg" /></a>
+             <a href="/filemanage"><img border="0" src="/static/img/t_download.svg" /></a>
             <br>
                 报告下载
              </div>
             <br>
             <div>
              <a href="/noteediter">
-                 <img border="0" src="/static/img/notification.svg" /></a>
+                 <img border="0" src="/static/img/t_publish.svg" /></a>
                 <br>
                 报告通知发布
             </div>
         </div>
     </div>
 
-    {% else %}
-    <h1>你尚未登录，只能访问公开内容！</h1>
-    {% endif %}
+
 </body>
 {% endblock %}
 </html>

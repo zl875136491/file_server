@@ -7,3 +7,6 @@ function send(){
     }
   window.location ='某Action!netWorkingUpdate?concentratorids='+value.toString();
 
+
+
+

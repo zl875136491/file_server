@@ -2,19 +2,12 @@ from django.shortcuts import render
 from django import forms
 from . import models
 from notesystem import models as note_models
-import os
+import os, time, zipfile, shutil, string, random
+
 from django.http import StreamingHttpResponse
 from django.utils.http import urlquote
 # Create your views here.
 
-
-
-'''
-register函数判断用户的是否为POST请求，如果是并验证是有效的，
-然后就返回upload ok!，在验证正确和返回OK的中间放我们的上传文件代码
-，因为只有文件上传成功能返回OK
-如果是GET请求，就直接显示一个空表单，让用户输入。
-'''
 
 
 def upload(request):
@@ -62,12 +55,27 @@ def uploadok(request):
 
 def filemanage(request):
         if request.method == "POST":
-            file_id = request.POST.get('test', None)
-            file_path = str(models.FileModel.objects.get(id=file_id).file_path)
-            the_file_name = str(models.FileModel.objects.get(id=file_id).file_name) + '.doc'  # 显示在弹出对话框中的默认的下载文件名
-            response = StreamingHttpResponse(readFile(file_path))
+            file_id_list = request.POST.getlist('test', '')
+            file_path_list = []
+            for i in file_id_list:
+                file_path_list.append(str(models.FileModel.objects.get(id=i).file_path))
+
+            downloader_name = request.session['user_id']
+            time_str = time.strftime('%Y-%m-%d', time.localtime(time.time()))
+            ran_str = ''.join(random.sample(string.ascii_letters + string.digits, 8))
+
+            zip_path_name = str(downloader_name) + '-' + time_str + '-' + ran_str
+            zip_name = zip_path_name + '.zip'
+
+            os.mkdir(zip_path_name)
+            for p in file_path_list:                                # 复制选中文件到归档目录
+                shutil.copy(p, zip_path_name)
+            zip_dir(zip_path_name, zip_name)                        # 压缩函数
+            shutil.move(zip_name, 'media')
+            shutil.rmtree(zip_path_name)
+            response = StreamingHttpResponse(readFile('media\\'+zip_name))
             response['Content-Type'] = 'application/octet-stream'
-            response['Content-Disposition'] = 'attachment;filename="{0}"'.format(the_file_name)
+            response['Content-Disposition'] = 'attachment;filename="{0}"'.format(zip_name)
             return response
 
         if request.method == "GET":
@@ -85,5 +93,21 @@ def readFile(filename, chunk_size=512):
                 break
 
 
+def zip_dir(dirname,zipfilename):
+    filelist = []
+    if os.path.isfile(dirname):
+        filelist.append(dirname)
+    else:
+        for root, dirs, files in os.walk(dirname):
+            for dir in dirs:
+                filelist.append(os.path.join(root, dir))
+            for name in files:
+                filelist.append(os.path.join(root, name))
+
+    zf = zipfile.ZipFile(zipfilename, "w", zipfile.zlib.DEFLATED)
+    for tar in filelist:
+        arcname = tar[len(dirname):]
+        zf.write(tar, arcname)
+    zf.close()
 
 

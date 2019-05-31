@@ -79,7 +79,7 @@ def logout(request):
 
 def register(request):
     if request.session.get('is_login', None):
-        # 登录状态不允许注册。你可以修改这条原则！
+        # 登录状态不允许注册
         return redirect("/index/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
