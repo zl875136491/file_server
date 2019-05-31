@@ -1,13 +1,8 @@
 from django.shortcuts import render
-from django import forms
 from . import models
 from notesystem import models as note_models
 import os, time, zipfile, shutil, string, random
-
 from django.http import StreamingHttpResponse
-from django.utils.http import urlquote
-# Create your views here.
-
 
 
 def upload(request):
@@ -21,10 +16,10 @@ def upload(request):
         name = str(request.session['user_id']) + '-' + str(report_id)
         up_file = request.FILES.get('upload_file', None)
         if not attribution:
-            message = "attribution error!"
+            message = "所选章节错误"
             return render(request, 'filesystem/upload.html', {'list': all_note}, locals())
         if models.FileModel.objects.filter(file_name=name):
-            message = "you already submited! do not submit again!"
+            message = "你已经交过报告了，请勿重复提交！"
             return render(request, 'filesystem/uploadok.html', locals())
         else:
             try:
@@ -34,7 +29,7 @@ def upload(request):
                     storage.write(chunk)
                 storage.close()
             except Exception as e:
-                message = 'file error'
+                message = '文件状态错误！'
                 return render(request, 'filesystem/upload.html', locals())
             file = models.FileModel.objects.create()
             file.file_name = name
@@ -42,7 +37,7 @@ def upload(request):
             file.file_path = path
             file.file_attribution = cleaned_attribution.split('：')[1]
             file.save()
-            message = "Successful!"
+            message = "上传成功!"
             return render(request, 'filesystem/uploadok.html', locals())
     else:
         return render(request, 'filesystem/upload.html', {'list': all_note})
@@ -84,6 +79,7 @@ def filemanage(request):
 
 
 def readFile(filename, chunk_size=512):
+    """下载文件函数"""
     with open(filename, 'rb') as f:
         while True:
             c = f.read(chunk_size)
@@ -94,6 +90,7 @@ def readFile(filename, chunk_size=512):
 
 
 def zip_dir(dirname,zipfilename):
+    """ 压缩函数"""
     filelist = []
     if os.path.isfile(dirname):
         filelist.append(dirname)

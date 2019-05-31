@@ -26,8 +26,8 @@ def noteediter(request):
             new_note.deadline_date = deadline_date
             new_note.author = request.session['user_name']
             new_note.save()
-            message = "Successful!"
-            return render(request, 'notesystem/notereciver.html', locals())
+            message = "发布成功!"
+            return render(request, 'notesystem/publishok.html', locals())
     return render(request, 'notesystem/noteediter.html')
 
 
@@ -39,3 +39,8 @@ def notereciver(request):
 def notecontent(request, note_id):
     detail = models.Notes.objects.get(id=note_id)
     return render(request, 'notesystem/notecontent.html', {'list': detail})
+
+
+def publishok(request):
+    pass
+    return render(request, 'notesystem/publishok.html')

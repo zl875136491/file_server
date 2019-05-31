@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^filemanage/', fileviews.filemanage),
     url(r'^noteediter/', noteviews.noteediter),
     url(r'^notereciver/', noteviews.notereciver),
+    url(r'^publishok/', noteviews.notereciver),
     url(r'^404/', usersviews.page404),
     url(r'^notecontent/(?P<note_id>\d+)/$', noteviews.notecontent, name='note'),
 

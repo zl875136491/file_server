@@ -1,0 +1,22 @@
+{% extends 'users/base_teacher.html' %}
+{% block title %}Successful{% endblock %}
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>报告发布成功</title>
+
+</head>
+<body>
+
+    {% if message %}
+    <div><h1>{{ message }}</h1></div>
+    {% endif %}
+
+            <a href="/teacherindex" class="btn btn-link-1">返回</a>
+</body>
+</html>
+{% endblock %}
