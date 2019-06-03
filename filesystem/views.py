@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from . import models
 from notesystem import models as note_models
-import os, time, zipfile, shutil, string, random
 from django.http import StreamingHttpResponse
+import os, time, zipfile, shutil, string, random
 
 
 def upload(request):
@@ -21,6 +21,7 @@ def upload(request):
         if models.FileModel.objects.filter(file_name=name):
             message = "你已经交过报告了，请勿重复提交！"
             return render(request, 'filesystem/uploadok.html', locals())
+        # 文件保存
         else:
             try:
                 path = os.path.join('media', up_file.name)
@@ -28,13 +29,15 @@ def upload(request):
                 for chunk in up_file.chunks():  # 分块写入文件
                     storage.write(chunk)
                 storage.close()
+                os.rename(path, name+'.doc')
+                shutil.move(name+'.doc', 'media')
             except Exception as e:
                 message = '文件状态错误！'
                 return render(request, 'filesystem/upload.html', locals())
             file = models.FileModel.objects.create()
             file.file_name = name
             file.file_owner = ownerid
-            file.file_path = path
+            file.file_path = 'media\\' + name + '.doc'
             file.file_attribution = cleaned_attribution.split('：')[1]
             file.save()
             message = "上传成功!"
@@ -54,18 +57,18 @@ def filemanage(request):
             file_path_list = []
             for i in file_id_list:
                 file_path_list.append(str(models.FileModel.objects.get(id=i).file_path))
-
+            # 构造数据项
             downloader_name = request.session['user_id']
             time_str = time.strftime('%Y-%m-%d', time.localtime(time.time()))
             ran_str = ''.join(random.sample(string.ascii_letters + string.digits, 8))
-
+            # 使用数据项为zip文件命名
             zip_path_name = str(downloader_name) + '-' + time_str + '-' + ran_str
             zip_name = zip_path_name + '.zip'
-
+            # 复制选中文件到归档目录
             os.mkdir(zip_path_name)
-            for p in file_path_list:                                # 复制选中文件到归档目录
+            for p in file_path_list:
                 shutil.copy(p, zip_path_name)
-            zip_dir(zip_path_name, zip_name)                        # 压缩函数
+            zip_dir(zip_path_name, zip_name)
             shutil.move(zip_name, 'media')
             shutil.rmtree(zip_path_name)
             response = StreamingHttpResponse(readFile('media\\'+zip_name))
@@ -79,7 +82,7 @@ def filemanage(request):
 
 
 def readFile(filename, chunk_size=512):
-    """下载文件函数"""
+    """文件读取函数"""
     with open(filename, 'rb') as f:
         while True:
             c = f.read(chunk_size)

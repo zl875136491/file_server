@@ -85,7 +85,7 @@ button.btn {
     vertical-align: middle;
     background: #fd625e;
     border: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'ZCOOL XiaoWei', serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 50px;
@@ -104,7 +104,7 @@ button.btn-big {
     vertical-align: middle;
     background: #fd625e;
     border: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'ZCOOL XiaoWei', serif;
     font-size: 16px;
     font-weight: 300;
     line-height: 50px;
@@ -232,6 +232,10 @@ button.btn-big {
 	border-color: #fd625e;
 }
 
+
+.alert-success{
+    margin:5% 30%;
+}
 
 /***** Media queries *****/
 

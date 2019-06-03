@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.shortcuts import render_to_response
 from .forms import UserForm
 from .forms import RegisterForm
 from . import models
@@ -57,14 +56,13 @@ def login(request):
                     if user.user_type == 'Teacher':
                         return redirect('/teacherindex')
                     else:
-                        message = "用户类型错误"
+                        message = "用户未激活，请联系管理员！"
+                        request.session.flush()
                 else:
                     message = "密码不正确！"
             except:
                    message = "用户不存在！"
-
             return render(request, 'users/login.html', locals())
-
     login_form = UserForm()
     return render(request, 'users/login.html', locals())
 
@@ -83,7 +81,6 @@ def register(request):
         return redirect("/index/")
     if request.method == "POST":
         register_form = RegisterForm(request.POST)
-        message = "请检查填写的内容！"
         if register_form.is_valid():
             username = register_form.cleaned_data['username']
             name = register_form.cleaned_data['name']
@@ -92,13 +89,12 @@ def register(request):
             email = register_form.cleaned_data['email']
             if password1 != password2:
                 message = "两次输入的密码不同！"
-                return render(request, '/register.html', locals())
+                return render(request, 'users/register.html', locals())
             else:
                 same_name_user = models.User.objects.filter(username=username)
                 if same_name_user:
                     message = '用户已经存在，请重新选择用户名！'
                     return render(request, 'users/register.html', locals())
-
                 # 创建新用户
                 new_user = models.User.objects.create()
                 new_user.username = username
@@ -106,8 +102,11 @@ def register(request):
                 new_user.user_pwd = password1
                 new_user.user_email = email
                 new_user.save()
-                return redirect('/login/')
-
+                message = "注册成功！"
+                return render(request, 'users/register.html', locals())
+        else:
+            message = "无效的验证码！"
+            return render(request, 'users/register.html', locals())
     register_form = RegisterForm()
     return render(request, 'users/register.html', locals())
 

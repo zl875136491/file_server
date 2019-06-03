@@ -2,7 +2,7 @@
 {% extends 'users/base.html' %}
 {% load staticfiles %}
 <head>
-
+<title>{% block title %}注册{% endblock %}</title>
 </head>
 
 {% block content %}
@@ -11,7 +11,11 @@
 
 <!-- 按钮触发模态框 -->
 <br>
-
+<br>
+<br>
+<br>
+<br>
+<br>
 <button data-toggle="modal" data-target="#Modal" class="btn btn-link-1">注册
 </button>
 <br>
@@ -32,11 +36,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <form class='form-register' action="/register/" method="post" >
-
-                    {% if message %}
-                  <div class="alert alert-warning">{{ message }}</div>
-                    {% endif %}
+            <form class='form-register' action="/register/" method="post" >
                     {% csrf_token %}
               <div class="form-group">
                   {{ register_form.username.label_tag }}
@@ -75,7 +75,10 @@
     </div><!-- /.modal -->
 </div>
                     {% if message %}
-                    <div class="alert alert-warning">{{ message }}</div>
+                    <div class="alert alert-success">
+		            <a class="close" data-dismiss="alert" >×</a>
+		            {{ message }}
+                    </div>
                     {% endif %}
 
 </body>

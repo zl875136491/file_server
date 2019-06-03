@@ -2,12 +2,15 @@
 {% extends 'users/base.html' %}
 {% load staticfiles %}
 <head>
-    <title>{% block title %}Login{% endblock %}</title>
+    <title>{% block title %}登录{% endblock %}</title>
 </head>
 {% block content %}
 <body>
 <div>
-<h1>Linux实验报告管理系统</h1>
+<img border="0" src="/static/img/logo.png" />
+</div>
+<div>
+<h1 style="margin-top: 1%">Linux实验报告管理系统</h1>
 </div>
 
 <!-- 按钮触发模态框 -->
@@ -35,11 +38,6 @@
                 <form class='form-login' action="/login/" method="post" >
                     {% csrf_token %}
 
-                    <!--双向选择box-->
-                    <!--<div class="form-group">-->
-                    <!--<input name="usertype" type="checkbox" data-size="small" id="login_identity" value="stu">-->
-                    <!--</div>-->
-
                     <div class="form-group">
                         {{ login_form.username.label_tag }}
                         {{ login_form.username}}
@@ -64,11 +62,12 @@
     </div>
 
 
-    {% if message %}
-    <div>
-        {{ message }}
-    </div>
-    {% endif %}
+                    {% if message %}
+                    <div class="alert alert-success">
+		            <a class="close" data-dismiss="alert" >×</a>
+		            {{ message }}
+                    </div>
+                    {% endif %}
 
 </body>
 {% endblock %}

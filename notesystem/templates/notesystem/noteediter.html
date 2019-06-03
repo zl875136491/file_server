@@ -14,9 +14,12 @@
         </div>
     </div>
 
-                {% if message %}
-                <div class="sign-middle">{{ message }}</div>
-                {% endif %}
+                    {% if message %}
+                    <div class="alert alert-danger">
+		            <a class="close" data-dismiss="alert" >×</a>
+		            {{ message }}
+                    </div>
+                    {% endif %}
             <div>
                 <form action="/noteediter/" method="post">
                     {% csrf_token %}

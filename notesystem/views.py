@@ -20,6 +20,7 @@ def noteediter(request):
             message = '无截止日期！'
             return render(request, 'notesystem/noteediter.html', locals())
         else:
+            # 发布成功
             new_note = models.Notes.objects.create()
             new_note.title = title
             new_note.content = content

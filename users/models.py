@@ -1,9 +1,7 @@
 from django.db import models
 
 
-# Create your models here.
 class User(models.Model):
-
     '''yonghu-Student-Teacher'''
 
     username = models.CharField(max_length=128, unique=True)
