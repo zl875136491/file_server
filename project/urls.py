@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from users import views as usersviews
 from filesystem import views as fileviews
 from notesystem import views as noteviews
+from score import views as scoreviews
 app_name = 'notesystem'
 
 urlpatterns = [
@@ -37,5 +38,9 @@ urlpatterns = [
     url(r'^publishok/', noteviews.notereciver),
     url(r'^404/', usersviews.page404),
     url(r'^notecontent/(?P<note_id>\d+)/$', noteviews.notecontent, name='note'),
+    url(r'checkscore/', scoreviews.checkscore),
+    url(r'checkscoreok/', scoreviews.checkscoreok),
+    url(r'selecttitle/', scoreviews.selecltile),
+    url(r'seescore/', scoreviews.seescore),
 ]
 

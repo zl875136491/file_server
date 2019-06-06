@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% extends 'users/base_teacher.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}章节选择{% endblock %}</title>
+</head>
+{% block content %}
+<body>
+                        <form action="/selecttitle/" method="post">
+                            {% csrf_token %}
+                        <div>
+                        <label for="select">选择实验题目</label>
+                        <br>
+                        <select class="selectpicker show-tick " data-live-search="true"
+                                id="select" name="title_todo" data-style="btn-info">
+                            {% for note in list %}
+                            <option>{{ note.title }}</option>
+                            {% empty %}
+				            <option>没有实验题目可以显示</option>
+        		            {% endfor %}
+                        </select>
+                        </div>
+                        <br>
+                        <div>
+                            <button type="submit"  class="btn btn-link-1">查看列表</button>
+                        </div>
+                        </form>
+</body>
+{% endblock %}
+</html>

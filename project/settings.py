@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'bootstrap3',
     'users',
     'captcha',
+    'score',
 ]
 
 MIDDLEWARE = [

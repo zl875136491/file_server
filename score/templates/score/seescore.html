@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% extends 'users/base.html' %}
+<html lang="en">
+<head>
+    <title>{% block title %}分数{% endblock %}</title>
+</head>
+{% block content %}
+<p>
+
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            <div>
+            {% for i in list %}
+                <p>分数情况：</p>
+            <p>{{ i }}</p>
+                {% endfor %}
+            </div>
+            <div>
+             <a href="/index" class="btn btn-link-1">返回</a>
+        </div>
+    </div>
+</body>
+{% endblock %}
+</html>

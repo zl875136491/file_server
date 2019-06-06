@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends 'users/base_teacher.html' %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}报告批改{% endblock %}</title>
+</head>
+{% block content %}
+
+<body>
+        <form action="/checkscore/" method="post">
+            {% csrf_token %}
+        <div class="table-middle">
+                  <div>
+                    <table class="table table-bordered" >
+                      <thead>
+                        <tr>
+                          <th>学生学号</th>
+                          <th>分数</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for i in list %}
+                        <tr>
+                         <td><input type="text" name="owner" value="{{ i.file_owner }}"/></td>
+                         <td><input type="text" name="score" oninput="value=value.replace(/[^\d]/g,'')"></td>
+                         </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+    <div>
+    <button type="submit" class="btn btn-link-1">完成批改</button>
+    </div>
+</div>
+</form>
+
+</body>
+{% endblock %}
+</html>
