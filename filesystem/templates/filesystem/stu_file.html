@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% extends 'users/base.html' %}
+<html lang="en">
+<head>
+    <title>{% block title %}我的报告{% endblock %}</title>
+</head>
+{% block content %}
+<body>
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+            <h2>我的报告</h2>
+            </div>
+    </div>
+
+<div class="table-middle">
+                  <!-- tile body -->
+                  <div>
+                    <table class="table table-bordered" >
+                      <thead>
+                        <tr>
+                          <th>所属文章</th>
+                          <th>报告文件</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      {% for i in list %}
+                        <tr>
+                         <td>{{ i.file_attribution }}</td>
+                            <td><a href="/{{ i.file_path }}">{{ i.file_name }}</a></td>
+                         </tr>
+                      {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+    <div>
+    <button class="btn btn-link-1"><a href="/index" >返回</a></button>
+    </div>
+</div>
+</form>
+
+
+</body>
+{% endblock %}
+</html>

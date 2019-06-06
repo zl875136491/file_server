@@ -8,6 +8,12 @@
 {% block content %}
 
 <body>
+                    {% if message %}
+                    <div class="alert alert-danger">
+		            <a class="close" data-dismiss="alert" >×</a>
+		            {{ message }}
+                    </div>
+                    {% endif %}
         <form action="/checkscore/" method="post">
             {% csrf_token %}
         <div class="table-middle">

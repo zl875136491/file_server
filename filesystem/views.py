@@ -81,6 +81,13 @@ def filemanage(request):
             return render(request, 'filesystem/filemanage.html', {'list': objects})
 
 
+def stu_file(request):
+    my_id = request.session['user_id']
+    my_file = models.FileModel.objects.filter(file_owner=my_id)
+    return render(request, 'filesystem/stu_file.html', {'list': my_file})
+
+
+
 def readFile(filename, chunk_size=512):
     """文件读取函数"""
     with open(filename, 'rb') as f:
@@ -109,5 +116,11 @@ def zip_dir(dirname,zipfilename):
         arcname = tar[len(dirname):]
         zf.write(tar, arcname)
     zf.close()
+
+
+
+
+
+
 
 

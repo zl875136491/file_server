@@ -6,17 +6,23 @@ from . import models
 
 def checkscore(request):
     author = request.session['user_name']
+    title = request.session['title_todo']
     if request.method == "POST":
         owner_list = request.POST.getlist('owner', '')
         score_list = request.POST.getlist('score', '')
-        print(owner_list, score_list)
         for i, j in zip(owner_list, score_list):
+            fingerprint = str(title) + str(i)
+            if not models.Score.objects.filter(score_fp=fingerprint):
                 item = models.Score.objects.create()
                 item.score_owner = i
                 item.score = j
                 item.score_checker = author
-                item.score_attribution = request.session['title_todo']
+                item.score_attribution = title
+                item.score_fp = fingerprint
                 item.save()
+            else:
+                message = '该学生分数已提交，请勿重复提交！'
+                return render(request, 'score/checkscorenotok.html', locals())
         return render(request, 'score/checkscoreok.html')
     else:
         return render(request, 'score/checkscore.html')
@@ -34,13 +40,22 @@ def selecltile(request):
         return render(request, 'score/selecttitle.html', {'list': own_note})
 
 
+
+
 def checkscoreok(request):
     pass
-    return render(request, 'score/checkscoreok.html')
+    return render(request, 'score/checkscoreok.html', locals())
+
+
+def checkscorenotok(request):
+    pass
+    return render(request, 'score/checkscorenotok.html', locals())
 
 
 def seescore(request):
     scorer = request.session['user_id']
     all_score = models.Score.objects.filter(score_owner=scorer)
     return render(request, 'score/seescore.html', {'list': all_score})
+
+
 

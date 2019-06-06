@@ -19,6 +19,9 @@ from users import views as usersviews
 from filesystem import views as fileviews
 from notesystem import views as noteviews
 from score import views as scoreviews
+from django.views.static import serve
+from django.conf import settings
+from django.urls import path
 app_name = 'notesystem'
 
 urlpatterns = [
@@ -40,7 +43,10 @@ urlpatterns = [
     url(r'^notecontent/(?P<note_id>\d+)/$', noteviews.notecontent, name='note'),
     url(r'checkscore/', scoreviews.checkscore),
     url(r'checkscoreok/', scoreviews.checkscoreok),
+    url(r'checkscoreok/', scoreviews.checkscorenotok),
     url(r'selecttitle/', scoreviews.selecltile),
     url(r'seescore/', scoreviews.seescore),
+    url(r'stu_file', fileviews.stu_file),
+    url(r'media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT}),
 ]
 
