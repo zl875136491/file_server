@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 # from .forms import NoteForm
 from . import models
+import datetime
 # Create your views here.
 
 
@@ -9,6 +10,13 @@ def noteediter(request):
         title = request.POST.get('title', None)
         content = request.POST.get('content', None)
         deadline_date = request.POST.get('deadline_date', None)
+        month, day, year = deadline_date.split('/')
+        deadline_cleaned = str(year) + str(month) + str(day)
+        # 获取当天时间并格式化
+        time_sys = str(datetime.datetime.now()).split(' ')[0]
+        print(time_sys)
+        year_sys, month_sys, day_sys = time_sys.split('-')
+        time_today = str(year_sys) + str(month_sys) + str(day_sys)
         same_title = models.Notes.objects.filter(title=title)
         if same_title:
             message = '标题已经存在！'
@@ -16,15 +24,15 @@ def noteediter(request):
         if not content:
             message = '无内容！'
             return render(request, 'notesystem/noteediter.html', locals())
-        if not deadline_date:
-            message = '无截止日期！'
+        if int(deadline_cleaned) <= int(time_today):
+            message = '无效的截止日期！'
             return render(request, 'notesystem/noteediter.html', locals())
         else:
             # 发布成功
             new_note = models.Notes.objects.create()
             new_note.title = title
             new_note.content = content
-            new_note.deadline_date = deadline_date
+            new_note.deadline_date = deadline_cleaned
             new_note.author = request.session['user_name']
             new_note.save()
             message = "发布成功!"

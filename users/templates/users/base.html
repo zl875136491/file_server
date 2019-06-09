@@ -8,10 +8,10 @@
 
     {% block css %}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei&display=swap">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
     <link rel="stylesheet" href="{% static 'bootstrap-3.3.7/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/student_base.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/switch.css' %}">
     {% endblock %}
     <title>{% block title %}base{% endblock %}</title>
 
@@ -35,7 +35,7 @@
               <li class="dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">当前在线：{{ request.session.user_name }}<b class="caret bottom-up"></b></a>
 					<ul class="dropdown-menu bottom-up pull-right">
-						<li><a href="/stu_file/">我的报告</a></li>
+                        <li><a href="/stu_file/">我的报告</a></li>
 						<!--<li class="divider"></li>-->
 
 					</ul>
@@ -52,15 +52,12 @@
 
 
     {% block content %}{% endblock %}
-
-
     <script src="{% static 'js/jquery-3.3.1.js' %}"></script>
     <script src="{% static 'bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.backstretch.min.js' %}"></script>
     <script src="{% static 'js/respond.js' %}"></script>
     <script src="{% static 'js/html5shiv.js' %}"></script>
-    <script src="{% static 'js/accept.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <script src="{% static 'js/bootstrap-select.js' %}"></script>
 
 
 </body>

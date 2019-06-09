@@ -11,7 +11,7 @@ class UserForm(forms.Form):
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(label="学号", max_length=128,
+    username = forms.CharField(label="学号 / 账号", max_length=128,
                                widget=forms.TextInput(attrs={'class': 'form-control'}))
     name = forms.CharField(label="姓名", max_length=128,
                                widget=forms.TextInput(attrs={'class': 'form-control'}))

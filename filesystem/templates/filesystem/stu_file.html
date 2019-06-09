@@ -26,7 +26,7 @@
                       {% for i in list %}
                         <tr>
                          <td>{{ i.file_attribution }}</td>
-                            <td><a href="/{{ i.file_path }}">{{ i.file_name }}</a></td>
+                            <td><a href="/media/{{ i.file_name}}.pdf" name="docfile" value="{{ i.file_name }}" target="_blank">{{ i.file_name }}</a></td>
                          </tr>
                       {% endfor %}
                       </tbody>

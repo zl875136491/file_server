@@ -2,11 +2,16 @@ from django.shortcuts import render
 from . import models
 from notesystem import models as note_models
 from django.http import StreamingHttpResponse
-import os, time, zipfile, shutil, string, random
+import os, time, zipfile, shutil, string, random, datetime
 
 
 def upload(request):
-    all_note = note_models.Notes.objects.all().order_by('publish_date')
+    # 获取当天时间并格式化
+    time_sys = str(datetime.datetime.now()).split(' ')[0]
+    print(time_sys)
+    year_sys, month_sys, day_sys = time_sys.split('-')
+    time_today = str(year_sys) + str(month_sys) + str(day_sys)
+    all_note = note_models.Notes.objects.filter(deadline_date__gte=time_today)
     if request.method == "POST":
         attribution = request.POST.get('file_attribution')
         cleaned_attribution = str(attribution).split('|')[0].rstrip()
@@ -84,6 +89,7 @@ def filemanage(request):
 def stu_file(request):
     my_id = request.session['user_id']
     my_file = models.FileModel.objects.filter(file_owner=my_id)
+    os.system('python D:\\project\\server\\filesystem\\doc2pdf.py')
     return render(request, 'filesystem/stu_file.html', {'list': my_file})
 
 
@@ -116,7 +122,6 @@ def zip_dir(dirname,zipfilename):
         arcname = tar[len(dirname):]
         zf.write(tar, arcname)
     zf.close()
-
 
 
 

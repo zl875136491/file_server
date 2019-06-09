@@ -35,9 +35,11 @@
                     学生注册
                 </h4>
             </div>
+
             <div class="modal-body">
             <form class='form-register' action="/register/" method="post" >
                     {% csrf_token %}
+
               <div class="form-group">
                   {{ register_form.username.label_tag }}
                   {{ register_form.username}}

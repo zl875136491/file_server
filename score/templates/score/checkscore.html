@@ -28,7 +28,7 @@
                       <tbody>
                         {% for i in list %}
                         <tr>
-                         <td><input type="text" name="owner" value="{{ i.file_owner }}"/></td>
+                         <td><input type="text" name="owner" value="{{ i.file_owner }}" readonly="true"/></td>
                          <td><input type="text" name="score" oninput="value=value.replace(/[^\d]/g,'')"></td>
                          </tr>
                         {% endfor %}

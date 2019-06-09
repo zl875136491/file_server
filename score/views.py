@@ -40,8 +40,6 @@ def selecltile(request):
         return render(request, 'score/selecttitle.html', {'list': own_note})
 
 
-
-
 def checkscoreok(request):
     pass
     return render(request, 'score/checkscoreok.html', locals())
